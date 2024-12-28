@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 01</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      width: 350px;
+      backdrop-filter: blur(10px);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #fff;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .input-section label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .input-section input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #ff7e5f;
+      border-radius: 8px;
+      outline: none;
+      background: #fff;
+    }
+
+    .input-section button {
+      padding: 15px 20px;
+      background-color: #ff5722;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .summary-section button {
+      padding: 12px 18px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 1rem;
+    }
+
+    .summary-section input {
+      margin-top: 10px;
+      padding: 12px;
+      border: 2px solid #ff5722;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    #summaryDisplay {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Assignment 01</h1>
+    </header>
+    <div class="input-section">
+      <label for="studentName">Enter Your Name:</label>
+      <input type="text" id="studentName" placeholder="Your name here">
+
+      <label for="studentEmail">Enter Your Email:</label>
+      <input type="email" id="studentEmail" placeholder="Your email here">
+
+      <button id="getQuestionBtn">Get a Question</button>
+    </div>
+    <div id="questionDisplay" class="hidden">
+      <p id="questionText"></p>
+    </div>
+    <div class="summary-section">
+      <button id="summaryBtn">View Summary</button>
+      <input type="password" id="passwordInput" placeholder="Enter password" class="hidden">
+      <button id="generatePdfBtn" class="hidden">Generate PDF</button>
+      <div id="summaryDisplay" class="hidden"></div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script>
+    // JavaScript Logic
+    const questions = Array.from({ length: 36 }, (_, i) => `Question ${i + 1}`);
+    const assignedQuestions = new Set();
+    const emailToQuestion = new Map();
+    const emailToName = new Map();
+
+    const getQuestionBtn = document.getElementById("getQuestionBtn");
+    const summaryBtn = document.getElementById("
